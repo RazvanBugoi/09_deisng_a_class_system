@@ -8,15 +8,15 @@ class Diary
     def add(diary_entry) # diary_entry is an instance of DiaryEntry
         @diary << diary_entry.content
         @todos << diary_entry.todo
+        @phone_numbers << diary_entry.phone_number
         return nil
     end
 
     def display_phone_numbers
-    # I want to see a list of all of the mobile phone numbers in all my diary entries
+        return @phone_numbers
     end
 
     def display_todos
-    # Returns a list of all todos
         return @todos
     end
 
@@ -25,6 +25,13 @@ class Diary
     end
 
     def select_entries(time, wpm)
-     #I want to select diary entries to read based on how much time I have and my reading speed
+        fail "WPM must be positive." if !wpm.positive?
+        reading_time = (wpm * time).to_f
+        readable_entries = ""
+        splited_list = @diary.join(" ").split
+        splited_list.each_index do |index|
+            readable_entries << "#{splited_list[index]} " if index < reading_time
+        end
+        return readable_entries.strip
     end
 end

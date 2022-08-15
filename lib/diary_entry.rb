@@ -13,7 +13,8 @@ class DiaryEntry
         return @todo
     end
 
-    def phone_number 
+    def phone_number
+        fail "Phone number must be an integer." if @phone_number.class != Integer
         return @phone_number
     end
 end
